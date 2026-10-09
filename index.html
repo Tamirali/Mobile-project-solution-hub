@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Project Solution Hub - Products</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #06b6d4;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --dark: #0f172a;
+            --gray: #64748b;
+            --light: #f8fafc;
+            --card-bg: #ffffff;
+            --body-bg: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 50%, #f0f9ff 100%);
+            --shadow: 0 10px 40px rgba(79, 70, 229, 0.08);
+            --shadow-hover: 0 20px 50px rgba(79, 70, 229, 0.15);
+            --border: #e2e8f0;
+        }
+
+        [data-theme="dark"] {
+            --dark: #f1f5f9;
+            --gray: #94a3b8;
+            --light: #1e293b;
+            --card-bg: #1e293b;
+            --body-bg: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            --shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            --shadow-hover: 0 20px 50px rgba(99, 102, 241, 0.2);
+            --border: #334155;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--body-bg);
+            background-attachment: fixed;
+            padding: 15px;
+            color: var(--dark);
+            min-height: 100vh;
+            transition: background 0.4s ease, color 0.4s ease;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            background: var(--card-bg);
+            padding: 25px 30px;
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            margin-bottom: 25px;
+            position: relative;
+            text-align: center;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 0 0 4px 4px;
+        }
+
+        h1 {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+            font-size: 26px;
+            letter-spacing: -0.5px;
+            margin-bottom: 10px;
+        }
+
+        .creator-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: linear-gradient(135deg, #e0e7ff, #cffafe);
+            color: var(--primary-dark);
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        [data-theme="dark"] .creator-badge {
+            background: linear-gradient(135deg, #312e81, #164e63);
+            color: #c7d2fe;
+        }
+
+        .creator-badge a {
+            color: var(--success);
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--light);
+            border: 1px solid var(--border);
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(20deg) scale(1.1);
+            background: var(--primary);
+        }
+
+        /* ===== SEARCH & FILTER ===== */
+        .toolbar {
+            background: var(--card-bg);
+            padding: 18px 20px;
+            border-radius: 18px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            margin-bottom: 25px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 200px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 16px 12px 42px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            background: var(--light);
+            color: var(--dark);
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-box input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+        }
+
+        .search-box::before {
+            content: '🔍';
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 16px;
+        }
+
+        .filter-select {
+            padding: 12px 16px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            background: var(--light);
+            color: var(--dark);
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.3s ease;
+            min-width: 150px;
+        }
+
+        .filter-select:focus {
+            border-color: var(--primary);
+        }
+
+        .live-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 11px;
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--success);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .live-dot {
+            width: 7px;
+            height: 7px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: livePulse 1.5s infinite;
+        }
+
+        @keyframes livePulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.3); }
+        }
+
+        /* ===== PRODUCT GRID ===== */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .product-card {
+            background: var(--card-bg);
+            border-radius: 18px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            animation: fadeInUp 0.4s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--primary);
+        }
+
+        .product-image-wrapper {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #e0e7ff, #cffafe);
+        }
+
+        [data-theme="dark"] .product-image-wrapper {
+            background: linear-gradient(135deg, #312e81, #164e63);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.08);
+        }
+
+        .product-image-fallback {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            opacity: 0.5;
+        }
+
+        .badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            z-index: 2;
+        }
+
+        .badge-featured {
+            background: linear-gradient(135deg, var(--warning), #d97706);
+            color: white;
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+        }
+
+        .badge-outstock {
+            background: linear-gradient(135deg, var(--danger), #b91c1c);
+            color: white;
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 700;
+            z-index: 2;
+        }
+
+        .discount-badge {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            background: linear-gradient(135deg, var(--success), #059669);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            z-index: 2;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+        }
+
+        .product-body {
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .product-category {
+            font-size: 11px;
+            color: var(--primary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 6px;
+        }
+
+        .product-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 8px;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .product-desc {
+            font-size: 13px;
+            color: var(--gray);
+            line-height: 1.5;
+            margin-bottom: 12px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            flex: 1;
+        }
+
+        .product-price-row {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .product-price {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--success);
+        }
+
+        .product-original-price {
+            font-size: 13px;
+            color: var(--gray);
+            text-decoration: line-through;
+        }
+
+        .btn-order {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            width: 100%;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+            padding: 11px;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-order:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
+        }
+
+        .btn-order:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            background: var(--gray);
+        }
+
+        /* ===== LOADING & EMPTY ===== */
+        .loading {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+            gap: 15px;
+            grid-column: 1 / -1;
+        }
+
+        .spinner {
+            width: 45px;
+            height: 45px;
+            border: 4px solid var(--border);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading p {
+            font-size: 14px;
+            color: var(--gray);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--gray);
+            grid-column: 1 / -1;
+            background: var(--card-bg);
+            border-radius: 18px;
+            border: 2px dashed var(--border);
+        }
+
+        .empty-state .emoji {
+            font-size: 60px;
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        .empty-state h3 {
+            color: var(--dark);
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+
+        .empty-state p {
+            font-size: 14px;
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            background: linear-gradient(135deg, var(--success), #059669);
+            color: white;
+            text-align: center;
+            padding: 13px;
+            border: none;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-admin-toggle {
+            background: linear-gradient(135deg, var(--warning), #d97706);
+            color: #1e293b;
+        }
+
+        .btn-danger { background: linear-gradient(135deg, var(--danger), #b91c1c); }
+        .btn-secondary { background: linear-gradient(135deg, #64748b, #475569); }
+
+        /* ===== ADMIN PANEL ===== */
+        #adminPanel {
+            display: none;
+            background: linear-gradient(135deg, #fffbeb, #fef3c7);
+            border: 2px dashed var(--warning);
+            padding: 25px;
+            border-radius: 18px;
+            margin-bottom: 25px;
+            animation: fadeInUp 0.4s ease;
+        }
+
+        [data-theme="dark"] #adminPanel {
+            background: linear-gradient(135deg, #422006, #713f12);
+        }
+
+        #adminPanel h3 {
+            color: var(--warning);
+            border-bottom: 2px solid #fde68a;
+            padding-bottom: 10px;
+            margin-bottom: 18px;
+            font-size: 17px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full { grid-column: 1 / -1; }
+
+        label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 11px 14px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 13px;
+            background: var(--card-bg);
+            color: var(--dark);
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+        }
+
+        .checkbox-row {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+            margin: 8px 0 14px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: auto;
+            margin: 0;
+            cursor: pointer;
+        }
+
+        /* ===== TOAST ===== */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            padding: 14px 24px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 500;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            z-index: 9999;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            max-width: 90%;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .toast.success { background: linear-gradient(135deg, var(--success), #059669); color: white; }
+        .toast.error { background: linear-gradient(135deg, var(--danger), #b91c1c); color: white; }
+        .toast.info { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; }
+
+        /* ===== FLOATING WHATSAPP ===== */
+        .float-wa {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 58px;
+            height: 58px;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: white;
+            text-decoration: none;
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+            z-index: 999;
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+
+        .float-wa:hover { transform: scale(1.1) rotate(10deg); }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4); }
+            50% { box-shadow: 0 8px 35px rgba(37, 211, 102, 0.7); }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 640px) {
+            .container { padding: 0; }
+            h1 { font-size: 20px; }
+            .creator-badge { font-size: 11px; padding: 6px 12px; }
+            .form-grid { grid-template-columns: 1fr; }
+            .products-grid { grid-template-columns: 1fr; }
+            .toolbar { padding: 14px; }
+            .theme-toggle { width: 36px; height: 36px; font-size: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- ===== HEADER ===== -->
+    <header>
+        <button class="theme-toggle" onclick="toggleTheme()" title="Theme">🌙</button>
+        <h1>🛍️ Mobile Project Solution Hub</h1>
+        <div class="creator-badge">
+            👨‍💻 <strong>Tamir Ali</strong> | 
+            <a href="https://wa.me/918797221991" target="_blank">📱 +91 8797221991</a>
+        </div>
+    </header>
+
+    <!-- ===== TOOLBAR ===== -->
+    <div class="toolbar">
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Product search karein..." oninput="filterProducts()">
+        </div>
+        <select class="filter-select" id="categoryFilter" onchange="filterProducts()">
+            <option value="">Sabhi Categories</option>
+            <option value="Software">Software</option>
+            <option value="Hardware">Hardware</option>
+            <option value="Service">Service</option>
+            <option value="Accessories">Accessories</option>
+            <option value="Other">Other</option>
+        </select>
+        <span class="live-badge"><span class="live-dot"></span>LIVE</span>
+    </div>
+
+    <!-- ===== ADMIN PANEL ===== -->
+    <div id="adminPanel">
+        <h3>⚙️ Admin Panel - Product Management</h3>
+        
+        <!-- Login Box -->
+        <div id="loginBox">
+            <label for="adminPass">🔑 Admin Password Darj Karein:</label>
+            <input type="password" id="adminPass" placeholder="Secret access code..." style="margin-bottom:12px;">
+            <button class="btn" onclick="verifyAdmin()">Login Karein</button>
+        </div>
+
+        <!-- Dashboard Box -->
+        <div id="dashboardBox" style="display:none;">
+            <p style="color: var(--success); font-weight: 600; margin-bottom: 15px;">✔ Admin Login Successful!</p>
+            
+            <div class="form-grid">
+                <div class="form-group full">
+                    <label>📝 Product ka Naam *</label>
+                    <input type="text" id="newName" placeholder="Jaise: Kirana POS System">
+                </div>
+                
+                <div class="form-group full">
+                    <label>📄 Description *</label>
+                    <textarea id="newDesc" rows="2" placeholder="Product ke baare mein likhein..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>💰 Price (₹) *</label>
+                    <input type="number" id="newPrice" placeholder="4999">
+                </div>
+                
+                <div class="form-group">
+                    <label>🏷️ Original Price (₹)</label>
+                    <input type="number" id="newOriginalPrice" placeholder="7999">
+                </div>
+                
+                <div class="form-group">
+                    <label>📂 Category</label>
+                    <select id="newCategory">
+                        <option value="Software">Software</option>
+                        <option value="Hardware">Hardware</option>
+                        <option value="Service">Service</option>
+                        <option value="Accessories">Accessories</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>🖼️ Image URL</label>
+                    <input type="text" id="newImage" placeholder="https://image-url.jpg">
+                </div>
+                
+                <div class="form-group full">
+                    <label>📱 WhatsApp Number</label>
+                    <input type="text" id="newWhatsapp" placeholder="918797221991" value="918797221991">
+                </div>
+            </div>
+
+            <div class="checkbox-row">
+                <label class="checkbox-item">
+                    <input type="checkbox" id="newFeatured"> ⭐ Featured
+                </label>
+                <label class="checkbox-item">
+                    <input type="checkbox" id="newInStock" checked> ✔️ In Stock
+                </label>
+            </div>
+
+            <button class="btn" id="addBtn" onclick="addProduct()">➕ Naya Product Add Karein</button>
+            
+            <div style="display:flex; gap:10px; margin-top: 10px;">
+                <button class="btn btn-secondary" onclick="exitAdmin()">🚪 Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== PRODUCTS GRID ===== -->
+    <div class="products-grid" id="productsGrid">
+        <div class="loading">
+            <div class="spinner"></div>
+            <p>Firebase se products load ho rahe hain...</p>
+        </div>
+    </div>
+
+    <!-- ===== ADMIN TOGGLE ===== -->
+    <button class="btn btn-admin-toggle" onclick="toggleAdminPanel()">🔒 Admin Panel</button>
+</div>
+
+<!-- Floating WhatsApp -->
+<a href="https://wa.me/918797221991" target="_blank" class="float-wa" title="WhatsApp">💬</a>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- ============================================== -->
+<!-- FIREBASE SDK (Modular v10 via CDN)              -->
+<!-- ============================================== -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { 
+        getDatabase, ref, push, set, remove, onValue, 
+        query, orderByChild 
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+    // === Firebase Config ===
+    const firebaseConfig = {
+        apiKey: "AIzaSyBvfFTKBqh0E0sS5ufpejiK_ua6gixnf5s",
+        authDomain: "local-resailing.firebaseapp.com",
+        databaseURL: "https://local-resailing-default-rtdb.firebaseio.com",
+        projectId: "local-resailing",
+        storageBucket: "local-resailing.firebasestorage.app",
+        messagingSenderId: "973187455126",
+        appId: "1:973187455126:web:847a608d88024595e1cab7",
+        measurementId: "G-ZKP0Q91SDE"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const productsRef = ref(db, 'products');
+
+    let allProducts = [];
+
+    // ============================================
+    // REAL-TIME DATA LISTENER
+    // ============================================
+    function loadProducts() {
+        const q = query(productsRef, orderByChild('timestamp'));
+        
+        onValue(q, (snapshot) => {
+            allProducts = [];
+            snapshot.forEach((child) => {
+                allProducts.push({
+                    id: child.key,
+                    ...child.val()
+                });
+            });
+            allProducts.reverse(); // Latest first
+            filterProducts();
+        }, (error) => {
+            console.error("Firebase error:", error);
+            showToast('❌ Data load nahi ho paya: ' + error.message, 'error');
+            document.getElementById('productsGrid').innerHTML = `
+                <div class="empty-state">
+                    <span class="emoji">⚠️</span>
+                    <h3>Connection Error</h3>
+                    <p>Firebase se connect nahi ho paya.<br>Database rules check karein.</p>
+                </div>
+            `;
+        });
+    }
+
+    // ============================================
+    // FILTER & RENDER PRODUCTS
+    // ============================================
+    window.filterProducts = function() {
+        const search = document.getElementById('searchInput').value.toLowerCase().trim();
+        const category = document.getElementById('categoryFilter').value;
+
+        let filtered = allProducts.filter(p => {
+            const matchSearch = !search || 
+                (p.name || '').toLowerCase().includes(search) ||
+                (p.description || '').toLowerCase().includes(search);
+            const matchCategory = !category || p.category === category;
+            return matchSearch && matchCategory;
+        });
+
+        renderProducts(filtered);
+    };
+
+    function renderProducts(products) {
+        const grid = document.getElementById('productsGrid');
+
+        if (products.length === 0) {
+            grid.innerHTML = `
+                <div class="empty-state">
+                    <span class="emoji">📭</span>
+                    <h3>Koi Product Nahi Mila</h3>
+                    <p>${allProducts.length === 0 ? 'Admin panel se pehla product add karein.' : 'Search ya filter change karke dekhein.'}</p>
+                </div>
+            `;
+            return;
+        }
+
+        grid.innerHTML = products.map(p => {
+            const price = parseFloat(p.price) || 0;
+            const originalPrice = parseFloat(p.originalPrice) || 0;
+            const hasDiscount = originalPrice > price && originalPrice > 0;
+            const discountPercent = hasDiscount 
+                ? Math.round(((originalPrice - price) / originalPrice) * 100) 
+                : 0;
+            const inStock = p.inStock !== false;
+            const waNumber = p.whatsapp || '918797221991';
+            const waMessage = encodeURIComponent(`Hello, mujhe yeh product chahiye: ${p.name} (₹${price})`);
+
+            return `
+                <div class="product-card">
+                    <div class="product-image-wrapper">
+                        ${p.featured ? '<span class="badge badge-featured">⭐ Featured</span>' : ''}
+                        ${!inStock ? '<span class="badge-outstock">Out of Stock</span>' : ''}
+                        ${hasDiscount ? `<span class="discount-badge">${discountPercent}% OFF</span>` : ''}
+                        ${p.image 
+                            ? `<img src="${escapeHtml(p.image)}" alt="${escapeHtml(p.name)}" class="product-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                               <div class="product-image-fallback" style="display:none;">📦</div>`
+                            : `<div class="product-image-fallback">📦</div>`
+                        }
+                    </div>
+                    <div class="product-body">
+                        <div class="product-category">${escapeHtml(p.category || 'Other')}</div>
+                        <h3 class="product-name">${escapeHtml(p.name)}</h3>
+                        <p class="product-desc">${escapeHtml(p.description)}</p>
+                        <div class="product-price-row">
+                            <span class="product-price">₹${price.toLocaleString('en-IN')}</span>
+                            ${hasDiscount ? `<span class="product-original-price">₹${originalPrice.toLocaleString('en-IN')}</span>` : ''}
+                        </div>
+                        ${inStock 
+                            ? `<a href="https://wa.me/${waNumber}?text=${waMessage}" target="_blank" class="btn-order">💬 Order Karein</a>`
+                            : `<button class="btn-order" disabled>❌ Out of Stock</button>`
+                        }
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    // ============================================
+    // ADD PRODUCT
+    // ============================================
+    window.addProduct = async function() {
+        const name = document.getElementById('newName').value.trim();
+        const desc = document.getElementById('newDesc').value.trim();
+        const price = document.getElementById('newPrice').value.trim();
+        const originalPrice = document.getElementById('newOriginalPrice').value.trim();
+        const category = document.getElementById('newCategory').value;
+        const image = document.getElementById('newImage').value.trim();
+        const whatsapp = document.getElementById('newWhatsapp').value.trim();
+        const featured = document.getElementById('newFeatured').checked;
+        const inStock = document.getElementById('newInStock').checked;
+        const addBtn = document.getElementById('addBtn');
+
+        if (!name || !desc || !price) {
+            showToast('⚠️ Name, Description aur Price zaroor bharein!', 'error');
+            return;
+        }
+
+        addBtn.disabled = true;
+        addBtn.textContent = '⏳ Save ho raha hai...';
+
+        try {
+            const newRef = push(productsRef);
+            await set(newRef, {
+                name: name,
+                description: desc,
+                price: parseFloat(price),
+                originalPrice: originalPrice ? parseFloat(originalPrice) : 0,
+                category: category,
+                image: image || '',
+                whatsapp: whatsapp || '918797221991',
+                featured: featured,
+                inStock: inStock,
+                timestamp: Date.now()
+            });
+
+            // Clear form
+            ['newName', 'newDesc', 'newPrice', 'newOriginalPrice', 'newImage'].forEach(id => {
+                document.getElementById(id).value = '';
+            });
+            document.getElementById('newFeatured').checked = false;
+            document.getElementById('newInStock').checked = true;
+
+            showToast('✔ Product Firebase mein add ho gaya!', 'success');
+        } catch (error) {
+            console.error("Write error:", error);
+            showToast('❌ Save nahi ho paya: ' + error.message, 'error');
+        } finally {
+            addBtn.disabled = false;
+            addBtn.textContent = '➕ Naya Product Add Karein';
+        }
+    };
+
+    // ============================================
+    // ADMIN PANEL
+    // ============================================
+    window.toggleAdminPanel = function() {
+        const panel = document.getElementById('adminPanel');
+        panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+    };
+
+    window.verifyAdmin = function() {
+        const pass = document.getElementById('adminPass').value;
+        if (pass === 'tamir7122') {
+            document.getElementById('loginBox').style.display = 'none';
+            document.getElementById('dashboardBox').style.display = 'block';
+            showToast('✔ Admin Login Successful!', 'success');
+        } else {
+            showToast('❌ Galat Code!', 'error');
+        }
+    };
+
+    window.exitAdmin = function() {
+        document.getElementById('dashboardBox').style.display = 'none';
+        document.getElementById('loginBox').style.display = 'block';
+        document.getElementById('adminPass').value = '';
+        document.getElementById('adminPanel').style.display = 'none';
+        showToast('🚪 Logout Successful!', 'info');
+    };
+
+    // ============================================
+    // UTILITIES
+    // ============================================
+    window.toggleTheme = function() {
+        const body = document.body;
+        const btn = document.querySelector('.theme-toggle');
+        if (body.getAttribute('data-theme') === 'dark') {
+            body.removeAttribute('data-theme');
+            btn.textContent = '🌙';
+            localStorage.setItem('theme', 'light');
+        } else {
+            body.setAttribute('data-theme', 'dark');
+            btn.textContent = '☀️';
+            localStorage.setItem('theme', 'dark');
+        }
+    };
+
+    function showToast(message, type = 'info') {
+        const toast = document.getElementById('toast');
+        toast.textContent = message;
+        toast.className = 'toast ' + type;
+        setTimeout(() => toast.classList.add('show'), 10);
+        setTimeout(() => toast.classList.remove('show'), 3500);
+    }
+
+    function escapeHtml(text) {
+        if (!text) return '';
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    // ============================================
+    // INIT
+    // ============================================
+    if (localStorage.getItem('theme') === 'dark') {
+        document.body.setAttribute('data-theme', 'dark');
+        document.querySelector('.theme-toggle').textContent = '☀️';
+    }
+
+    loadProducts();
+    console.log('🔥 Firebase connected - Product Hub ready!');
+</script>
+
+</body>
+</html>
