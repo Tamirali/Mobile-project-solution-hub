@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tamir Ali - Mobile Web Developer Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans antialiased">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-slate-950/90 backdrop-blur-md border-b border-slate-800">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-xl font-bold text-blue-400">Tamir Ali</h1>
+            <div class="flex items-center gap-4">
+                <button onclick="toggleAdminPanel()" class="bg-slate-800 hover:bg-slate-700 text-xs px-3 py-2 rounded-lg border border-slate-700 transition">
+                    <i class="fas fa-lock text-amber-400 mr-1"></i> Admin Panel
+                </button>
+                <a href="#contact" class="bg-blue-600 px-4 py-2 rounded-full text-sm font-medium hover:bg-blue-700 transition hidden sm:inline-block">Contact Me</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Banner Section -->
+    <section class="relative bg-slate-900 border-b border-slate-800">
+        <div class="max-w-6xl mx-auto px-4 py-12 md:py-20 flex flex-col md:flex-row items-center gap-8">
+            <div class="w-full md:w-1/2 text-center md:text-left">
+                <span class="inline-block px-3 py-1 bg-blue-500/10 text-blue-400 rounded-full text-xs font-semibold mb-4">
+                    🚀 Mobile Web Developer
+                </span>
+                <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-4">
+                    Hi, I'm <span class="text-blue-500">Tamir Ali</span>
+                </h2>
+                <p class="text-slate-400 text-base md:text-lg mb-4">
+                    GitHub, Vercel & Firebase expert. Modern aur responsive web applications developer.
+                </p>
+                <p class="text-sm text-slate-400 mb-6 flex items-center justify-center md:justify-start gap-2">
+                    <i class="fas fa-map-marker-alt text-red-500"></i> <span id="displayLocation">26°10'44.69"N 84°23'55.38"E (Jasuali Kharg)</span>[span_1](start_span)[span_1](end_span)
+                </p>
+                <div class="flex flex-wrap gap-3 justify-center md:justify-start">
+                    <a href="https://wa.me/918797221991" target="_blank" class="bg-green-600 hover:bg-green-700 text-white px-5 py-2.5 rounded-xl text-sm font-medium transition flex items-center gap-2">
+                        <i class="fab fa-whatsapp"></i> WhatsApp: 8797221991
+                    </a>
+                </div>
+            </div>
+            <div class="w-full md:w-1/2 flex justify-center">
+                <div class="relative w-full max-w-md h-64 md:h-80 rounded-2xl overflow-hidden border border-slate-700 shadow-2xl bg-slate-800">
+                    <img id="bannerImage" src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80" alt="Banner Image" class="w-full h-full object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Horizontal Scrolling Products Section -->
+    <section class="max-w-6xl mx-auto px-4 py-16">
+        <div class="flex justify-between items-center mb-6">
+            <h3 class="text-2xl font-bold">My Projects & Works</h3>
+            <span class="text-xs text-slate-400"><i class="fas fa-arrows-alt-h mr-1"></i> Scroll Left/Right</span>
+        </div>
+        <div id="productContainer" class="flex gap-6 overflow-x-auto no-scrollbar pb-4 scroll-smooth">
+            <!-- Dynamic Products -->
+        </div>
+    </section>
+
+    <!-- Secure Admin Modal (Password Hidden as dots) -->
+    <div id="adminModal" class="fixed inset-0 bg-black/80 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-800 w-full max-w-xl rounded-2xl p-6 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-4 border-b border-slate-800 pb-3">
+                <h3 class="text-lg font-bold text-amber-400"><i class="fas fa-shield-alt mr-2"></i> Secure Admin Panel</h3>
+                <button onclick="toggleAdminPanel()" class="text-slate-400 hover:text-white"><i class="fas fa-times text-xl"></i></button>
+            </div>
+
+            <!-- Password Entry Screen -->
+            <div id="authScreen" class="space-y-4">
+                <p class="text-sm text-slate-400">Projects add, edit ya delete karne ke liye secure password enter karein:</p>
+                <input type="password" id="adminPasswordInput" placeholder="Enter Password" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-blue-500">
+                <button onclick="verifyPassword()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 rounded-xl transition">Login</button>
+            </div>
+
+            <!-- Control Dashboard -->
+            <div id="controlDashboard" class="hidden space-y-6">
+                <!-- Banner & Location Management -->
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-800 space-y-3">
+                    <h4 class="font-semibold text-sm text-blue-400">Update Banner Photo & Location</h4>
+                    <label class="block text-xs text-slate-400">Upload Banner Image from Mobile:</label>
+                    <input type="file" id="bannerImgFile" accept="image/*" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-xs text-white">
+                    <input type="text" id="newLocationText" value="26°10'44.69"N 84°23'55.38"E (Jasuali Kharg)" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white">
+                    <button onclick="updateBannerInfo()" class="bg-green-600 hover:bg-green-700 text-white text-xs px-4 py-2 rounded-lg font-medium">Save Banner & Location</button>
+                </div>
+
+                <!-- Add / Edit Project Form -->
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-800 space-y-3">
+                    <h4 id="formTitleText" class="font-semibold text-sm text-blue-400">Add New Project</h4>
+                    <input type="hidden" id="editIndex" value="-1">
+                    <input type="text" id="prodTitle" placeholder="Project Title" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white">
+                    
+                    <label class="block text-xs text-slate-400">Upload Project Photo from Mobile:</label>
+                    <input type="file" id="prodImgFile" accept="image/*" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-xs text-white">
+                    
+                    <input type="text" id="prodLink" placeholder="Project / Demo Link" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white">
+                    
+                    <div class="flex gap-2">
+                        <button onclick="saveProduct()" id="saveBtn" class="bg-blue-600 hover:bg-blue-700 text-white text-xs px-4 py-2 rounded-lg font-medium">Add Project</button>
+                        <button onclick="resetForm()" id="cancelBtn" class="bg-slate-700 hover:bg-slate-600 text-white text-xs px-4 py-2 rounded-lg font-medium hidden">Cancel Edit</button>
+                    </div>
+                </div>
+
+                <!-- Existing Projects Management (Edit / Delete) -->
+                <div>
+                    <h4 class="font-semibold text-sm text-amber-400 mb-2">Manage Existing Projects (Edit or Delete)</h4>
+                    <div id="adminProductList" class="space-y-2 max-h-48 overflow-y-auto">
+                        <!-- Populated dynamically -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <section id="contact" class="max-w-4xl mx-auto px-4 py-16 border-t border-slate-800 text-center">
+        <h3 class="text-2xl font-bold mb-4">Let's Connect</h3>
+        <p class="text-slate-400 mb-6">Aap apne project ke liye seedhe contact kar sakte hain.</p>
+        <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl inline-block w-full max-w-md">
+            <p class="text-sm text-slate-400 mb-1">WhatsApp / Phone:</p>
+            <a href="tel:8797221991" class="text-xl font-bold text-blue-400">+91 8797221991</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800 py-6 text-center text-slate-500 text-xs">
+        <p>&copy; 2026 Tamir Ali. Mobile Web Developer. Hosted via GitHub, Vercel & Firebase.</p>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        const CORRECT_PASSWORD = "78619";
+
+        let portfolioData = JSON.parse(localStorage.getItem('tamir_portfolio_data')) || {
+            bannerImg: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80",
+            location: "26°10'44.69\"N 84°23'55.38\"E (Jasuali Kharg)",
+            products: [
+                { title: "Mobile Web App", img: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=600&q=80", link: "#" },
+                { title: "Portfolio Template", img: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=600&q=80", link: "#" }
+            ]
+        };
+
+        function saveData() {
+            localStorage.setItem('tamir_portfolio_data', JSON.stringify(portfolioData));
+            renderPortfolio();
+        }
+
+        function renderPortfolio() {
+            document.getElementById('bannerImage').src = portfolioData.bannerImg;
+            document.getElementById('displayLocationinnerText') || (document.getElementById('displayLocation').innerText = portfolioData.location);
+
+            const container = document.getElementById('productContainer');
+            container.innerHTML = '';
+
+            portfolioData.products.forEach((p, index) => {
+                container.innerHTML += `
+                    <div class="min-w-[260px] md:min-w-[300px] bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-lg flex-shrink-0 flex flex-col justify-between">
+                        <div>
+                            <img src="${p.img}" alt="${p.title}" class="w-full h-40 object-cover">
+                            <div class="p-4">
+                                <h4 class="font-bold text-base mb-1">${p.title}</h4>
+                            </div>
+                        </div>
+                        <div class="p-4 pt-0">
+                            <a href="${p.link}" target="_blank" class="block text-center bg-blue-600/20 text-blue-400 hover:bg-blue-600 hover:text-white text-xs font-semibold py-2 rounded-xl transition">View Project</a>
+                        </div>
+                    </div>
+                `;
+            });
+
+            const adminList = document.getElementById('adminProductList');
+            if(adminList) {
+                adminList.innerHTML = '';
+                portfolioData.products.forEach((p, index) => {
+                    adminList.innerHTML += `
+                        <div class="flex justify-between items-center bg-slate-900 p-2 rounded-lg border border-slate-700 text-xs">
+                            <span class="truncate max-w-[150px]">${p.title}</span>
+                            <div class="flex gap-1">
+                                <button onclick="editProduct(${index})" class="bg-blue-600/20 text-blue-400 hover:bg-blue-600 hover:text-white px-2 py-1 rounded">Edit</button>
+                                <button onclick="deleteProduct(${index})" class="bg-red-600/20 text-red-400 hover:bg-red-600 hover:text-white px-2 py-1 rounded">Delete</button>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+        }
+
+        function toggleAdminPanel() {
+            document.getElementById('adminModal').classList.toggle('hidden');
+        }
+
+        function verifyPassword() {
+            const pwd = document.getElementById('adminPasswordInput').value;
+            if(pwd === CORRECT_PASSWORD) {
+                document.getElementById('authScreen').classList.add('hidden');
+                document.getElementById('controlDashboard').classList.remove('hidden');
+                document.getElementById('newLocationText').value = portfolioData.location;
+                document.getElementById('adminPasswordInput').value = ''; // Clear password field
+            } else {
+                alert("Galat Password!");
+            }
+        }
+
+        function updateBannerInfo() {
+            const fileInput = document.getElementById('bannerImgFile');
+            const newLoc = document.getElementById('newLocationText').value;
+
+            if(newLoc) portfolioData.location = newLoc;
+
+            if(fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    portfolioData.bannerImg = e.target.result;
+                    saveData();
+                    alert("Banner & Location successfully update ho gaye!");
+                }
+                reader.readAsDataURL(fileInput.files[0]);
+            } else {
+                saveData();
+                alert("Location update ho gayi!");
+            }
+        }
+
+        function saveProduct() {
+            const title = document.getElementById('prodTitle').value;
+            const link = document.getElementById('prodLink').value;
+            const fileInput = document.getElementById('prodImgFile');
+            const editIndex = parseInt(document.getElementById('editIndex').value);
+
+            if(!title) {
+                alert("Please project ka title bharein!");
+                return;
+            }
+
+            let processSave = (imgUrl) => {
+                if(editIndex === -1) {
+                    // Add new
+                    portfolioData.products.push({ title, img: imgUrl || portfolioData.products[0]?.img || '', link: link || '#' });
+                    alert("Naya project add ho gaya!");
+                } else {
+                    // Update existing
+                    portfolioData.products[editIndex].title = title;
+                    if(imgUrl) portfolioData.products[editIndex].img = imgUrl;
+                    portfolioData.products[editIndex].link = link || '#';
+                    alert("Project successfully update/edit ho gaya!");
+                }
+                saveData();
+                resetForm();
+            };
+
+            if(fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    processSave(e.target.result);
+                }
+                reader.readAsDataURL(fileInput.files[0]);
+            } else {
+                // If editing without changing photo, keep old image
+                let existingImg = editIndex !== -1 ? portfolioData.products[editIndex].img : "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=600&q=80";
+                processSave(existingImg);
+            }
+        }
+
+        function editProduct(index) {
+            const p = portfolioData.products[index];
+            document.getElementById('prodTitle').value = p.title;
+            document.getElementById('prodLink').value = p.link;
+            document.getElementById('editIndex').value = index;
+            document.getElementById('formTitleTextinnerText') || (document.getElementById('formTitleText').innerText = "Edit Project");
+            document.getElementById('saveBtn').innerText = "Update Project";
+            document.getElementById('cancelBtn').classList.remove('hidden');
+        }
+
+        function resetForm() {
+            document.getElementById('prodTitle').value = '';
+            document.getElementById('prodLink').value = '';
+            document.getElementById('prodImgFile').value = '';
+            document.getElementById('editIndex').value = -1;
+            document.getElementById('formTitleText').innerText = "Add New Project";
+            document.getElementById('saveBtn').innerText = "Add Project";
+            document.getElementById('cancelBtn').classList.add('hidden');
+        }
+
+        function deleteProduct(index) {
+            if(confirm("Kya aap is project ko delete karna chahte hain?")) {
+                portfolioData.products.splice(index, 1);
+                saveData();
+            }
+        }
+
+        renderPortfolio();
+    </script>
+</body>
+</html>
